@@ -5,13 +5,8 @@ build:
     - script:
       name: mastodon4j test
       code: |
-        ./gradlew mastodon4j:test mastodon4j:jacoco
-        cp -r ./mastodon4j/build/reports/jacoco/* $WERCKER_REPORT_ARTIFACTS_DIR/
+        ./gradlew mastodon4j:test
     - script:
       name: mastodon4j-rx test
       code: |
-        ./gradlew mastodon4j-rx:test mastodon4j:jacoco
-    - script:
-      name: upload test result to codecov
-      code: |
-        bash <(curl -s https://codecov.io/bash)
+        ./gradlew mastodon4j-rx:test
