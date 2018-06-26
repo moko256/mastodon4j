@@ -71,7 +71,7 @@ class RxAccounts(client: MastodonClient) {
     fun getStatuses(accountId: Long, onlyMedia: Boolean, range: Range): Single<Pageable<Status>> {
         return Single.create {
             try {
-                val statuses = accounts.getStatuses(accountId, onlyMedia, range).execute()
+                val statuses = accounts.getStatuses(accountId = accountId, onlyMedia = onlyMedia, range = range).execute()
                 it.onSuccess(statuses)
             } catch(throwable: Throwable) {
                 it.onErrorIfNotDisposed(throwable)
