@@ -8,7 +8,6 @@ import com.sys1yagi.mastodon4j.api.Range
 import com.sys1yagi.mastodon4j.api.entity.Account
 import com.sys1yagi.mastodon4j.api.entity.Relationship
 import com.sys1yagi.mastodon4j.api.entity.Status
-import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
 import okhttp3.RequestBody
@@ -33,14 +32,14 @@ class Accounts(private val client: MastodonClient) {
         )
     }
 
-    /**
-     * PATCH /api/v1/accounts/update_credentials
-     * display_name: The name to display in the user's profile
-     * note: A new biography for the user
-     * avatar: A base64 encoded image to display as the user's avatar (e.g. data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADrCAYAAAA...)
-     * header: A base64 encoded image to display as the user's header image (e.g. data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAUoAAADrCAYAAAA...)
-     */
-    fun updateCredential(displayName: String?, note: String?, avatar: String?, header: String?): MastodonRequest<Account> {
+    //  PATCH /api/v1/accounts/update_credentials
+    fun updateCredential(displayName: String? = null,
+                         note: String? = null,
+                         avatar: String? = null,
+                         header: String? = null,
+                         locked: Boolean? = null,
+                         fieldsAttributes: List<Pair<String, String>>? = null
+    ): MastodonRequest<Account> {
         val parameters = Parameter().apply {
             displayName?.let {
                 append("display_name", it)
@@ -53,6 +52,15 @@ class Accounts(private val client: MastodonClient) {
             }
             header?.let {
                 append("header", it)
+            }
+            locked?.let {
+                append("locked", it)
+            }
+            fieldsAttributes?.let {
+                for ((index, attribute) in fieldsAttributes.withIndex()) {
+                    append("fields_attributes[$index][name]", attribute.first)
+                    append("fields_attributes[$index][value]", attribute.second)
+                }
             }
         }.build()
         return MastodonRequest(
