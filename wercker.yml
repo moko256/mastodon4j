@@ -3,10 +3,6 @@ box: java:8
 build:
   steps:
     - script:
-      name: mastodon4j test
+      name: mastodon4j build
       code: |
-        ./gradlew mastodon4j:test
-    - script:
-      name: mastodon4j-rx test
-      code: |
-        ./gradlew mastodon4j-rx:test
+        ./gradlew jar
