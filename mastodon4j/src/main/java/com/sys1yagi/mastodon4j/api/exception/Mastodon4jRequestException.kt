@@ -9,7 +9,7 @@ class Mastodon4jRequestException : Exception {
         this.response = response
     }
 
-    constructor(e : Exception) : super(e) {
+    constructor(e: Exception) : super(e) {
         this.response = null
     }
 

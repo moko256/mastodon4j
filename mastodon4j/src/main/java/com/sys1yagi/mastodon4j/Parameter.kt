@@ -1,7 +1,7 @@
 package com.sys1yagi.mastodon4j
 
 import java.net.URLEncoder
-import java.util.ArrayList
+import java.util.*
 
 class Parameter {
     private val parameters = ArrayList<Pair<String, String>>()
@@ -25,10 +25,10 @@ class Parameter {
     }
 
     fun build(): String =
-            parameters
-                    .map {
-                        "${it.first}=${URLEncoder.encode(it.second, "utf-8")}"
-                    }
-                    .joinToString(separator = "&")
+        parameters
+            .map {
+                "${it.first}=${URLEncoder.encode(it.second, "utf-8")}"
+            }
+            .joinToString(separator = "&")
 
 }
