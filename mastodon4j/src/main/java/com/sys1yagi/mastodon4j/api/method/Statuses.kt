@@ -123,7 +123,7 @@ class Statuses(private val client: MastodonClient) {
             spoilerText?.let {
                 append("spoiler_text", it)
             }
-            append("visibility", visibility.value)
+            append("visibility", visibility.name.toLowerCase())
         }.build()
 
         return MastodonRequest<Status>(

@@ -28,7 +28,7 @@ object Kotlindon {
             } ?: timelines.getHome(Range(limit = 5)).execute()
 
             result.part.sortedBy { it.createdAt }.forEach {
-                println(it.account?.displayName)
+                println(it.account.displayName)
                 println(it.content)
                 println(it.createdAt)
                 println("------------------------")
