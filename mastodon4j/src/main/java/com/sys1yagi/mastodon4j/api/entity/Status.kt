@@ -24,7 +24,7 @@ class Status(
     @SerializedName("muted") val isMuted: Boolean = false,
     @SerializedName("sensitive") val isSensitive: Boolean = false,
     @SerializedName("spoiler_text") val spoilerText: String = "",
-    @SerializedName("visibility") val visibility: Visibility = Visibility.Public,
+    @SerializedName("visibility") val visibility: String = Visibility.Public.value,
     @SerializedName("media_attachments") val mediaAttachments: List<Attachment> = emptyList(),
     @SerializedName("mentions") val mentions: List<Mention> = emptyList(),
     @SerializedName("tags") val tags: List<Tag> = emptyList(),
@@ -32,14 +32,10 @@ class Status(
     @SerializedName("language") val language: String = "",
     @SerializedName("pinned") val isPinned: Boolean = false
 ) {
-    enum class Visibility {
-        @SerializedName("public")
-        Public(),
-        @SerializedName("unlisted")
-        Unlisted(),
-        @SerializedName("private")
-        Private(),
-        @SerializedName("direct")
-        Direct()
+    enum class Visibility(val value: String) {
+        Public("public"),
+        Unlisted("unlisted"),
+        Private("private"),
+        Direct("direct")
     }
 }

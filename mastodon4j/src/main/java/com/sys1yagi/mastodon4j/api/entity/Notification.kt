@@ -7,19 +7,15 @@ import com.google.gson.annotations.SerializedName
  */
 class Notification(
     @SerializedName("id") val id: Long = 0L,
-    @SerializedName("type") val type: Type = Type.Mention,
+    @SerializedName("type") val type: String = Type.Mention.value,
     @SerializedName("created_at") val createdAt: String = "",
     @SerializedName("account") val account: Account = Account(),
     @SerializedName("status") val status: Status? = null
 ) {
-    enum class Type {
-        @SerializedName("mention")
-        Mention(),
-        @SerializedName("reblog")
-        Reblog(),
-        @SerializedName("favourite")
-        Favourite(),
-        @SerializedName("follow")
-        Follow()
+    enum class Type(val value: String) {
+        Mention("mention"),
+        Reblog("reblog"),
+        Favourite("favourite"),
+        Follow("follow")
     }
 }

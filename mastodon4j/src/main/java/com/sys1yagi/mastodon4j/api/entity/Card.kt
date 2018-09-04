@@ -10,7 +10,7 @@ class Card(
     @SerializedName("title") val title: String = "",
     @SerializedName("description") val description: String = "",
     @SerializedName("image") val image: String = "",
-    @SerializedName("type") val type: Type = Type.Link,
+    @SerializedName("type") val type: String = Type.Link.value,
     @SerializedName("author_name") val authorName: String = "",
     @SerializedName("author_url") val authorUrl: String = "",
     @SerializedName("provider_name") val providerName: String = "",
@@ -19,14 +19,10 @@ class Card(
     @SerializedName("width") val width: Int = 0,
     @SerializedName("height") val height: Int = 0
 ) {
-    enum class Type {
-        @SerializedName("link")
-        Link(),
-        @SerializedName("photo")
-        Photo(),
-        @SerializedName("video")
-        Video(),
-        @SerializedName("rich")
-        Rich()
+    enum class Type(val value: String) {
+        Link("link"),
+        Photo("photo"),
+        Video("video"),
+        Rich("rich")
     }
 }

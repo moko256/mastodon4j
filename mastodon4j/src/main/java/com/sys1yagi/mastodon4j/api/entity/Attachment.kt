@@ -7,21 +7,17 @@ import com.google.gson.annotations.SerializedName
  */
 class Attachment(
     @SerializedName("id") val id: Long = 0L,
-    @SerializedName("type") val type: Type = Type.Image,
+    @SerializedName("type") val type: String = Type.Image.value,
     @SerializedName("url") val url: String = "",
     @SerializedName("remote_url") val remoteUrl: String = "",
     @SerializedName("preview_url") val previewUrl: String = "",
     @SerializedName("text_url") val textUrl: String = "",
     @SerializedName("description") val description: String = ""
 ) {
-    enum class Type {
-        @SerializedName("image")
-        Image(),
-        @SerializedName("video")
-        Video(),
-        @SerializedName("gifv")
-        Gifv(),
-        @SerializedName("Unknown")
-        Unknown()
+    enum class Type(val value: String) {
+        Image("image"),
+        Video("video"),
+        Gifv("gifv"),
+        Unknown("unknown")
     }
 }
