@@ -16,6 +16,7 @@ import okhttp3.RequestBody
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#accounts
  */
 class Accounts(private val client: MastodonClient) {
+
     // GET /api/v1/accounts/:id
     fun getAccount(accountId: Long): MastodonRequest<Account> {
         return MastodonRequest(
@@ -24,7 +25,7 @@ class Accounts(private val client: MastodonClient) {
         )
     }
 
-    //  GET /api/v1/accounts/verify_credentials
+    // GET /api/v1/accounts/verify_credentials
     fun getVerifyCredentials(): MastodonRequest<Account> {
         return MastodonRequest(
             { client.get("accounts/verify_credentials") },
@@ -32,7 +33,7 @@ class Accounts(private val client: MastodonClient) {
         )
     }
 
-    //  PATCH /api/v1/accounts/update_credentials
+    // PATCH /api/v1/accounts/update_credentials
     fun updateCredential(displayName: String? = null,
                          note: String? = null,
                          avatar: String? = null,
@@ -62,13 +63,13 @@ class Accounts(private val client: MastodonClient) {
                     append("fields_attributes[$index][value]", attribute.second)
                 }
             }
-        }.build()
+        }
         return MastodonRequest(
             {
                 client.patch("accounts/update_credentials",
                     RequestBody.create(
                         MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters
+                        parameters.build()
                     ))
             },
             {
@@ -78,7 +79,6 @@ class Accounts(private val client: MastodonClient) {
     }
 
     //  GET /api/v1/accounts/:id/followers
-    @JvmOverloads
     fun getFollowers(accountId: Long, range: Range = Range()): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
             {
@@ -94,7 +94,6 @@ class Accounts(private val client: MastodonClient) {
     }
 
     //  GET /api/v1/accounts/:id/following
-    @JvmOverloads
     fun getFollowing(accountId: Long, range: Range = Range()): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
             {
@@ -108,24 +107,24 @@ class Accounts(private val client: MastodonClient) {
         ).toPageable()
     }
 
-    //  GET /api/v1/accounts/:id/statuses
-    @JvmOverloads
+    // GET /api/v1/accounts/:id/statuses
     fun getStatuses(
         accountId: Long,
-        onlyMedia: Boolean = false,
-        excludeReplies: Boolean = false,
-        pinned: Boolean = false,
+        onlyMedia: Boolean? = null,
+        pinned: Boolean? = null,
+        excludeReplies: Boolean? = null,
         range: Range = Range()
     ): MastodonRequest<Pageable<Status>> {
-        val parameters = range.toParameter()
-        if (onlyMedia) {
-            parameters.append("only_media", true)
-        }
-        if (pinned) {
-            parameters.append("pinned", true)
-        }
-        if (excludeReplies) {
-            parameters.append("exclude_replies", true)
+        val parameters = range.toParameter().apply {
+            onlyMedia?.let {
+                append("only_media", it)
+            }
+            pinned?.let {
+                append("pinned", it)
+            }
+            excludeReplies?.let {
+                append("exclude_replies", it)
+            }
         }
         return MastodonRequest<Pageable<Status>>(
             {
@@ -140,11 +139,25 @@ class Accounts(private val client: MastodonClient) {
         ).toPageable()
     }
 
-    //  POST /api/v1/accounts/:id/follow
-    fun postFollow(accountId: Long): MastodonRequest<Relationship> {
-        return MastodonRequest<Relationship>(
+    // POST /api/v1/accounts/:id/follow
+    fun postFollow(
+        accountId: Long,
+        reblogs: Boolean? = null
+    ): MastodonRequest<Relationship> {
+        val parameters = Parameter().apply {
+            reblogs?.let {
+                append("reblogs", it)
+            }
+        }
+        return MastodonRequest(
             {
-                client.post("accounts/$accountId/follow", emptyRequestBody())
+                client.post(
+                    "accounts/$accountId/follow",
+                    RequestBody.create(
+                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                        parameters.build()
+                    )
+                )
             },
             {
                 client.getSerializer().fromJson(it, Relationship::class.java)
@@ -154,7 +167,7 @@ class Accounts(private val client: MastodonClient) {
 
     //  POST /api/v1/accounts/:id/unfollow
     fun postUnFollow(accountId: Long): MastodonRequest<Relationship> {
-        return MastodonRequest<Relationship>(
+        return MastodonRequest(
             {
                 client.post("accounts/$accountId/unfollow", emptyRequestBody())
             },
@@ -166,7 +179,7 @@ class Accounts(private val client: MastodonClient) {
 
     //  POST /api/v1/accounts/:id/block
     fun postBlock(accountId: Long): MastodonRequest<Relationship> {
-        return MastodonRequest<Relationship>(
+        return MastodonRequest(
             {
                 client.post("accounts/$accountId/block", emptyRequestBody())
             },
@@ -178,7 +191,7 @@ class Accounts(private val client: MastodonClient) {
 
     //  POST /api/v1/accounts/:id/unblock
     fun postUnblock(accountId: Long): MastodonRequest<Relationship> {
-        return MastodonRequest<Relationship>(
+        return MastodonRequest(
             {
                 client.post("accounts/$accountId/unblock", emptyRequestBody())
             },
@@ -189,10 +202,24 @@ class Accounts(private val client: MastodonClient) {
     }
 
     //  POST /api/v1/accounts/:id/mute
-    fun postMute(accountId: Long): MastodonRequest<Relationship> {
-        return MastodonRequest<Relationship>(
+    fun postMute(
+        accountId: Long,
+        notifications: Boolean? = null
+    ): MastodonRequest<Relationship> {
+        val parameters = Parameter().apply {
+            notifications?.let {
+                append("notifications", it)
+            }
+        }
+        return MastodonRequest(
             {
-                client.post("accounts/$accountId/mute", emptyRequestBody())
+                client.post(
+                    "accounts/$accountId/mute",
+                    RequestBody.create(
+                        MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
+                        parameters.build()
+                    )
+                )
             },
             {
                 client.getSerializer().fromJson(it, Relationship::class.java)
@@ -202,7 +229,7 @@ class Accounts(private val client: MastodonClient) {
 
     //  POST /api/v1/accounts/:id/unmute
     fun postUnmute(accountId: Long): MastodonRequest<Relationship> {
-        return MastodonRequest<Relationship>(
+        return MastodonRequest(
             {
                 client.post("accounts/$accountId/unmute", emptyRequestBody())
             },
@@ -228,19 +255,25 @@ class Accounts(private val client: MastodonClient) {
     }
 
     // GET /api/v1/accounts/search
-    /**
-     * q: What to search for
-     * limit: Maximum number of matching accounts to return (default: 40)
-     */
-    @JvmOverloads
-    fun getAccountSearch(query: String, limit: Int = 40): MastodonRequest<List<Account>> {
+    fun getAccountSearch(
+        query: String,
+        limit: Int? = null,
+        following: Boolean? = null
+    ): MastodonRequest<List<Account>> {
+        val parameter = Parameter().apply {
+            append("q", query)
+            limit?.let {
+                append("limit", it)
+            }
+            following?.let {
+                append("following", it)
+            }
+        }
         return MastodonRequest(
             {
                 client.get(
                     "accounts/search",
-                    Parameter()
-                        .append("q", query)
-                        .append("limit", limit)
+                    parameter
                 )
             },
             {
