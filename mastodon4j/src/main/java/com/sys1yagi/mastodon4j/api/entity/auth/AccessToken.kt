@@ -14,5 +14,5 @@ class AccessToken(
     var scope: String = "",
 
     @SerializedName("created_at")
-    var createdAt: Long = 0L) {
-}
+    var createdAt: Long = 0L
+)

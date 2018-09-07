@@ -13,7 +13,5 @@ class AppRegistration(
     val clientSecret: String = "",
 
     @SerializedName("redirect_uri")
-    val redirectUri: String = "",
-
-    var instanceName: String = "") {
-}
+    val redirectUri: String = ""
+)

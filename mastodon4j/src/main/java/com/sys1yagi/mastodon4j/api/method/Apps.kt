@@ -13,35 +13,42 @@ import okhttp3.RequestBody
  * see more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#apps
  */
 class Apps(private val client: MastodonClient) {
+
     // POST /api/v1/apps
-    @JvmOverloads
-    fun createApp(clientName: String, redirectUris: String = "urn:ietf:wg:oauth:2.0:oob", scope: Scope = Scope(Scope.Name.ALL), website: String? = null): MastodonRequest<AppRegistration> {
+    fun createApp(
+        clientName: String,
+        redirectUris: String = "urn:ietf:wg:oauth:2.0:oob",
+        scope: Scope = Scope(Scope.Name.ALL),
+        website: String? = null
+    ): MastodonRequest<AppRegistration> {
         scope.validate()
+        val parameter = Parameter().apply {
+            append("client_name", clientName)
+            append("redirect_uris", redirectUris)
+            append("scope", scope.toString())
+            website?.let {
+                append("website", it)
+            }
+        }
         return MastodonRequest(
             {
                 client.post("apps",
                     RequestBody.create(
                         MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        arrayListOf(
-                            "client_name=$clientName",
-                            "scopes=$scope",
-                            "redirect_uris=$redirectUris"
-                        ).apply {
-                            website?.let {
-                                add("website=${it}")
-                            }
-                        }.joinToString(separator = "&")
+                        parameter.build()
                     ))
             },
             {
-                client.getSerializer().fromJson(it, AppRegistration::class.java).apply {
-                    this.instanceName = client.getInstanceName()
-                }
+                client.getSerializer().fromJson(it, AppRegistration::class.java)
             }
         )
     }
 
-    fun getOAuthUrl(clientId: String, scope: Scope, redirectUri: String = "urn:ietf:wg:oauth:2.0:oob"): String {
+    fun getOAuthUrl(
+        clientId: String,
+        scope: Scope,
+        redirectUri: String = "urn:ietf:wg:oauth:2.0:oob"
+    ): String {
         val endpoint = "/oauth/authorize"
         val parameters = listOf(
             "client_id=$clientId",
@@ -53,7 +60,6 @@ class Apps(private val client: MastodonClient) {
     }
 
     // POST /oauth/token
-    @JvmOverloads
     fun getAccessToken(
         clientId: String,
         clientSecret: String,
@@ -62,19 +68,19 @@ class Apps(private val client: MastodonClient) {
         grantType: String = "authorization_code"
     ): MastodonRequest<AccessToken> {
         val url = "https://${client.getInstanceName()}/oauth/token"
-        val parameters = listOf(
-            "client_id=$clientId",
-            "client_secret=$clientSecret",
-            "redirect_uri=$redirectUri",
-            "code=$code",
-            "grant_type=$grantType"
-        ).joinToString(separator = "&")
+        val parameters = Parameter().apply {
+            append("client_id", clientId)
+            append("client_secret", clientSecret)
+            append("grant_type", grantType)
+            append("code", code)
+            append("redirect_uri", redirectUri)
+        }
         return MastodonRequest(
             {
-                client.postUrl(url,
+                client.post(url,
                     RequestBody.create(
                         MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters
+                        parameters.build()
                     ))
             },
             {
@@ -99,14 +105,14 @@ class Apps(private val client: MastodonClient) {
             append("username", userName)
             append("password", password)
             append("grant_type", "password")
-        }.build()
+        }
 
         return MastodonRequest(
             {
                 client.postUrl(url,
                     RequestBody.create(
                         MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters
+                        parameters.build()
                     ))
             },
             {
