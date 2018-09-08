@@ -143,7 +143,7 @@ class Statuses(private val client: MastodonClient) {
     //  DELETE /api/v1/statuses/:id
     @Throws(Mastodon4jRequestException::class)
     fun deleteStatus(statusId: Long) {
-        val response = client.delete("statuses/$statusId")
+        val response = client.delete("statuses/$statusId", emptyRequestBody())
         if (!response.isSuccessful) {
             throw Mastodon4jRequestException(response)
         }

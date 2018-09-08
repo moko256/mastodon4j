@@ -12,7 +12,6 @@ import com.sys1yagi.mastodon4j.api.entity.Status
 class Favourites(private val client: MastodonClient) {
 
     //  GET /api/v1/favourites
-    @JvmOverloads
     fun getFavourites(range: Range = Range()): MastodonRequest<Pageable<Status>> {
         return MastodonRequest<Pageable<Status>>(
             {

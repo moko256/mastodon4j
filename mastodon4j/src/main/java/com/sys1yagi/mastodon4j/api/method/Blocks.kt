@@ -12,7 +12,6 @@ import com.sys1yagi.mastodon4j.api.entity.Account
 class Blocks(private val client: MastodonClient) {
 
     //  GET /api/v1/blocks
-    @JvmOverloads
     fun getBlocks(range: Range = Range()): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
             {
