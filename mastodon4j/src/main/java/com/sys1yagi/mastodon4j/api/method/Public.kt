@@ -5,25 +5,10 @@ import com.sys1yagi.mastodon4j.MastodonRequest
 import com.sys1yagi.mastodon4j.Parameter
 import com.sys1yagi.mastodon4j.api.Pageable
 import com.sys1yagi.mastodon4j.api.Range
-import com.sys1yagi.mastodon4j.api.entity.Instance
 import com.sys1yagi.mastodon4j.api.entity.Results
 import com.sys1yagi.mastodon4j.api.entity.Status
 
 class Public(private val client: MastodonClient) {
-    /**
-     * GET /api/v1/instance
-     * @see https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#instances
-     */
-    fun getInstance(): MastodonRequest<Instance> {
-        return MastodonRequest(
-            {
-                client.get("instance")
-            },
-            { json ->
-                client.getSerializer().fromJson(json, Instance::class.java)
-            }
-        )
-    }
 
     /**
      * GET /api/v1/search

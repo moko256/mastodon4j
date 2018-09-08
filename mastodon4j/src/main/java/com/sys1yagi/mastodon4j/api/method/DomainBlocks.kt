@@ -26,7 +26,7 @@ class DomainBlocks(private val client: MastodonClient) {
     }
 
     //  POST /api/v1/domain_blocks
-    fun postDomainBlocks(domain: String): MastodonRequest<Nothing> {
+    fun postDomainBlock(domain: String): MastodonRequest<Nothing> {
         val parameters = Parameter().apply {
             append("domain", domain)
         }
@@ -46,7 +46,7 @@ class DomainBlocks(private val client: MastodonClient) {
     }
 
     //  DELETE /api/v1/domain_blocks
-    fun deleteDomainBlocks(domain: String): MastodonRequest<Nothing> {
+    fun deleteDomainBlock(domain: String): MastodonRequest<Nothing> {
         val parameters = Parameter().apply {
             append("domain", domain)
         }

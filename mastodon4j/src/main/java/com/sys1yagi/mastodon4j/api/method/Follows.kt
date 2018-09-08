@@ -11,20 +11,18 @@ import okhttp3.RequestBody
  * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#follows
  */
 class Follows(private val client: MastodonClient) {
-    /**
-     * POST /api/v1/follows
-     * @param uri: username@domain of the person you want to follow
-     */
-    fun postRemoteFollow(uri: String): MastodonRequest<Account> {
-        val parameters = Parameter()
-            .append("uri", uri)
-            .build()
-        return MastodonRequest<Account>(
+
+    //  POST /api/v1/follows
+    fun postFollow(uri: String): MastodonRequest<Account> {
+        val parameters = Parameter().apply {
+            append("uri", uri)
+        }
+        return MastodonRequest(
             {
                 client.post("follows",
                     RequestBody.create(
                         MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
-                        parameters
+                        parameters.build()
                     )
                 )
             },

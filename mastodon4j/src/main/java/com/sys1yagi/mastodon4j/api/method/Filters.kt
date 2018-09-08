@@ -3,7 +3,6 @@ package com.sys1yagi.mastodon4j.api.method
 import com.sys1yagi.mastodon4j.MastodonClient
 import com.sys1yagi.mastodon4j.MastodonRequest
 import com.sys1yagi.mastodon4j.Parameter
-import com.sys1yagi.mastodon4j.api.Pageable
 import com.sys1yagi.mastodon4j.api.entity.Filter
 import com.sys1yagi.mastodon4j.extension.emptyRequestBody
 import okhttp3.MediaType
@@ -15,19 +14,19 @@ import okhttp3.RequestBody
 class Filters(private val client: MastodonClient) {
 
     //  GET /api/vi/filters
-    fun getFilters(): MastodonRequest<Pageable<Filters>> {
-        return MastodonRequest<Pageable<Filters>>(
+    fun getFilters(): MastodonRequest<List<Filters>> {
+        return MastodonRequest(
             {
                 client.get("filters")
             },
             {
                 client.getSerializer().fromJson(it, Filter::class.java)
             }
-        ).toPageable()
+        )
     }
 
     //  POST /api/vi/filters
-    fun postFilters(
+    fun postFilter(
         phrase: String,
         context: List<String>,
         irreversible: Boolean? = null,
