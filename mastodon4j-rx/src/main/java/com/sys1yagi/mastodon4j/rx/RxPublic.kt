@@ -3,27 +3,25 @@ package com.sys1yagi.mastodon4j.rx
 import com.sys1yagi.mastodon4j.MastodonClient
 import com.sys1yagi.mastodon4j.api.Pageable
 import com.sys1yagi.mastodon4j.api.Range
-import com.sys1yagi.mastodon4j.api.entity.Instance
 import com.sys1yagi.mastodon4j.api.entity.Results
 import com.sys1yagi.mastodon4j.api.entity.Status
 import com.sys1yagi.mastodon4j.api.method.Public
-import com.sys1yagi.mastodon4j.rx.extensions.onErrorIfNotDisposed
 import com.sys1yagi.mastodon4j.rx.extensions.single
 import io.reactivex.Single
 
 class RxPublic(client: MastodonClient) {
     val publicMethod = Public(client)
 
-    fun getInstance(): Single<Instance> {
-        return Single.create {
-            try {
-                val instance = publicMethod.getInstance()
-                it.onSuccess(instance.execute())
-            } catch(throwable: Throwable) {
-                it.onErrorIfNotDisposed(throwable)
-            }
-        }
-    }
+//    fun getInstance(): Single<Instance> {
+//        return Single.create {
+//            try {
+//                val instance = publicMethod.getInstance()
+//                it.onSuccess(instance.execute())
+//            } catch(throwable: Throwable) {
+//                it.onErrorIfNotDisposed(throwable)
+//            }
+//        }
+//    }
 
     fun getSearch(query: String, resolve: Boolean = true): Single<Results> {
         return Single.create {

@@ -12,7 +12,7 @@ class RxFollows(client: MastodonClient) {
     fun postRemoteFollow(uri: String): Single<Account> {
         return Single.create {
             try {
-                val account = follows.postRemoteFollow(uri)
+                val account = follows.postFollow(uri)
                 it.onSuccess(account.execute())
             } catch(throwable: Throwable) {
                 it.onErrorIfNotDisposed(throwable)
