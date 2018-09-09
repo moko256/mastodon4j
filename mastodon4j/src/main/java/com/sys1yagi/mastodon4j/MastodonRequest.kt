@@ -7,8 +7,8 @@ import okhttp3.Response
 import java.lang.Exception
 
 open class MastodonRequest<T>(
-        private val executor: () -> Response,
-        private val mapper: (String) -> Any
+    private val executor: () -> Response,
+    private val mapper: (String) -> Any
 ) {
     interface Action1<T> {
         fun invoke(arg: T)

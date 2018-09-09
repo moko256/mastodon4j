@@ -46,7 +46,7 @@ class AccountsTest {
     fun updateCredential() {
         val client = MockClient.mock("account.json")
         val accounts = Accounts(client)
-        val account = accounts.updateCredential("test", "test", "test", "test").execute()
+        val account = accounts.updateCredential("test", "test", "test", "test", true, listOf(Pair("test", "test"))).execute()
         account.acct shouldEqualTo "test@test.com"
         account.displayName shouldEqualTo "test"
         account.userName shouldEqualTo "test"
@@ -56,7 +56,7 @@ class AccountsTest {
     fun updateCredentialWithException() {
         val client = MockClient.ioException()
         val accounts = Accounts(client)
-        accounts.updateCredential("test", "test", "test", "test").execute()
+        accounts.updateCredential("test", "test", "test", "test", true, listOf(Pair("test", "test"))).execute()
     }
 
     @Test

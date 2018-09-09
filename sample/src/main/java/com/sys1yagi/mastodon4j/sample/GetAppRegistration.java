@@ -19,7 +19,7 @@ public class GetAppRegistration {
                     new Scope(Scope.Name.ALL),
                     ""
             ).execute();
-            System.out.println("instance=" + registration.getInstanceName());
+            System.out.println("instance=" + client.getInstanceName());
             System.out.println("client_id=" + registration.getClientId());
             System.out.println("client_secret=" + registration.getClientSecret());
         } catch (Mastodon4jRequestException e) {

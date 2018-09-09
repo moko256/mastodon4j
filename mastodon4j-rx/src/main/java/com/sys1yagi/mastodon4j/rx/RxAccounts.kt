@@ -35,10 +35,16 @@ class RxAccounts(client: MastodonClient) {
         }
     }
 
-    fun updateCredential(displayName: String?, note: String?, avatar: String?, header: String?): Single<Account> {
+    fun updateCredential(displayName: String?,
+                         note: String?,
+                         avatar: String?,
+                         header: String?,
+                         locked: Boolean?,
+                         fieldsAttributes: List<Pair<String, String>>?
+    ): Single<Account> {
         return Single.create {
             try {
-                val credential = accounts.updateCredential(displayName, note, avatar, header).execute()
+                val credential = accounts.updateCredential(displayName, note, avatar, header, locked, fieldsAttributes).execute()
                 it.onSuccess(credential)
             } catch(throwable: Throwable) {
                 it.onErrorIfNotDisposed(throwable)
