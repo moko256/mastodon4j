@@ -134,7 +134,7 @@ class Statuses(private val client: MastodonClient) {
     fun deleteStatus(statusId: Long): MastodonRequest<Nothing> {
         return MastodonRequest(
             {
-                client.delete("statuses/:id", emptyRequestBody())
+                client.delete("statuses/$statusId", emptyRequestBody())
             },
             {
                 client.getSerializer().fromJson(it, Nothing::class.java)
