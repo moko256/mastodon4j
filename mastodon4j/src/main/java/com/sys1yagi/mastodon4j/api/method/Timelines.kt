@@ -94,4 +94,21 @@ class Timelines(private val client: MastodonClient) {
             }
         ).toPageable()
     }
+
+    //  GET /api/v1/timelines/direct
+    fun getDirectMessageTimeline(
+        range: Range = Range()
+    ): MastodonRequest<Pageable<Status>> {
+        return MastodonRequest<Pageable<Status>>(
+            {
+                client.get(
+                    "timelines/direct",
+                    range.toParameter()
+                )
+            },
+            {
+                client.getSerializer().fromJson(it, Status::class.java)
+            }
+        ).toPageable()
+    }
 }
