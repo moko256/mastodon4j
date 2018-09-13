@@ -239,6 +239,30 @@ class Accounts(private val client: MastodonClient) {
         )
     }
 
+    //  POST /api/v1/accounts/:id/pin
+    fun postEndorse(accountId: Long): MastodonRequest<Relationship> {
+        return MastodonRequest(
+            {
+                client.post("accounts/$accountId/pin", emptyRequestBody())
+            },
+            {
+                client.getSerializer().fromJson(it, Relationship::class.java)
+            }
+        )
+    }
+
+    //  POST /api/v1/accounts/:id/unpin
+    fun postUnendorse(accountId: Long): MastodonRequest<Relationship> {
+        return MastodonRequest(
+            {
+                client.post("accounts/$accountId/unpin", emptyRequestBody())
+            },
+            {
+                client.getSerializer().fromJson(it, Relationship::class.java)
+            }
+        )
+    }
+
     //  GET /api/v1/accounts/relationships
     fun getRelationships(accountIds: List<Long>): MastodonRequest<List<Relationship>> {
         return MastodonRequest(

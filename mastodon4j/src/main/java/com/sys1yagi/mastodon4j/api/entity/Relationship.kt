@@ -14,5 +14,6 @@ class Relationship(
     @SerializedName("muting_notifications") val isMutingNotifications: Boolean = false,
     @SerializedName("requested") val isRequested: Boolean = false,
     @SerializedName("domain_blocking") val isDomainBlocking: Boolean = false,
-    @SerializedName("showing_reblogs") val isShowingReblogs: Boolean = false
+    @SerializedName("showing_reblogs") val isShowingReblogs: Boolean = false,
+    @SerializedName("endorsed") val isEndorsed: Boolean = false
 )
