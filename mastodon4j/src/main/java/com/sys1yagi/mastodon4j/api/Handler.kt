@@ -6,11 +6,11 @@ import com.sys1yagi.mastodon4j.api.entity.Status
 
 interface Handler {
 
-    fun onStatus(status: Status)
+    fun onStatus(status: Status) {}
 
-    //ignore if public streaming
-    fun onNotification(notification: Notification)
+    fun onNotification(notification: Notification) {}
 
-    //ignore if public streaming
-    fun onDelete(id: Long)
+    fun onDelete(id: Long) {}
+
+    fun onFiltersChanged() {}
 }

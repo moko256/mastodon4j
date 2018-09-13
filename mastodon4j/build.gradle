@@ -4,6 +4,7 @@ apply plugin: 'kotlin'
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    compile "io.reactivex.rxjava2:rxjava:$rxJavaVersion"
     compile "com.squareup.okhttp3:okhttp:$okhttpVersion"
     compile "com.google.code.gson:gson:$gsonVersion"
 
