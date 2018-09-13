@@ -1,9 +1,7 @@
 # mastodon4j
 
-[![](https://jitpack.io/v/sys1yagi/mastodon4j.svg)](https://jitpack.io/#sys1yagi/mastodon4j)
-[![wercker status](https://app.wercker.com/status/498944e68f1f37a697fcbab383b0299c/s/master "wercker status")](https://app.wercker.com/project/byKey/498944e68f1f37a697fcbab383b0299c)
-[![codecov](https://codecov.io/gh/sys1yagi/mastodon4j/branch/master/graph/badge.svg)](https://codecov.io/gh/sys1yagi/mastodon4j)
-[![Android Arsenal](https://img.shields.io/badge/Android%20Arsenal-mastodon4j-brightgreen.svg?style=flat)](https://android-arsenal.com/details/1/5637)
+[![](https://jitpack.io/v/MulticolorWorld/mastodon4j.svg)](https://jitpack.io/#MulticolorWorld/mastodon4j)
+[![wercker status](https://app.wercker.com/status/fa8f4c3a1985f4d64af7b6f4b59789df/s/master "wercker status")](https://app.wercker.com/project/byKey/fa8f4c3a1985f4d64af7b6f4b59789df)
 
 mastodon4j is [mastodon](https://github.com/tootsuite/mastodon) client for Java and Kotlin.
 
@@ -32,11 +30,10 @@ allprojects {
 ```
 
 ```groovy
-compile 'com.github.sys1yagi.mastodon4j:mastodon4j:$version'
-compile 'com.github.sys1yagi.mastodon4j:mastodon4j-rx:$version'
+compile 'com.github.multicolorworld.mastodon4j:mastodon4j:$version'
 ```
 
-Check latest version on Jitpack [![](https://jitpack.io/v/sys1yagi/mastodon4j.svg)](https://jitpack.io/#sys1yagi/mastodon4j)
+Check latest version on Jitpack [![](https://jitpack.io/v/MulticolorWorld/mastodon4j.svg)](https://jitpack.io/#MulticolorWorld/mastodon4j)
 
 # Usage
 
@@ -48,7 +45,7 @@ __kotlin__
 val client: MastodonClient = MastodonClient.Builder("mstdn.jp", OkHttpClient.Builder(), Gson()).build()
         
 val timelines = Timelines(client)
-val statuses: List<Status> = timelines.getPublic().execute()
+val statuses: List<Status> = timelines.getPublicTimeLine().execute()
 ```
 
 __java__
@@ -58,7 +55,7 @@ MastodonClient client = new MastodonClient.Builder("mstdn.jp", new OkHttpClient.
 Timelines timelines = new Timelines(client);
 
 try {
-  List<Status> statuses = timelines.getPublic(new Range()).execute();
+  List<Status> statuses = timelines.getPublicTimeLine(null, null, new Range()).execute();
   statuses.forEach(status->{
     System.out.println("=============");
     System.out.println(status.getAccount().getDisplayName());
@@ -330,12 +327,36 @@ v1.0.0 or later
 
 ## Reporting Issues
 
-Found a problem? Want a new feature? First of all see if your issue or idea has already been reported. If don't, just open a new clear and descriptive [issues](https://github.com/sys1yagi/mastodon4j/issues)
+Found a problem? Want a new feature? First of all see if your issue or idea has already been reported. If don't, just open a new clear and descriptive [issues](https://github.com/multicolorworld/mastodon4j/issues)
 
 # License
 
 ```
 MIT License
+
+Copyright (c) 2018 Tomoaki Iwasaki
+
+Permission is hereby granted, free of charge, to any person obtaining
+a copy of this software and associated documentation files (the
+"Software"), to deal in the Software without restriction, including
+without limitation the rights to use, copy, modify, merge, publish,
+distribute, sublicense, and/or sell copies of the Software, and to
+permit persons to whom the Software is furnished to do so, subject to
+the following conditions:
+
+The above copyright notice and this permission notice shall be
+included in all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
+MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
+LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION
+OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
+WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+
+This project forked from sys1yagi/mastodon4j.
+Here is the original copyright notice.
 
 Copyright (c) 2017 Toshihiro Yagi
 
