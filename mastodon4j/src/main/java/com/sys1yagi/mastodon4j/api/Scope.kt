@@ -5,11 +5,14 @@ package com.sys1yagi.mastodon4j.api
  */
 class Scope
 constructor(private vararg val scopes: Name = arrayOf(Name.ALL)) {
-    enum class Name(val scopeName: String) {
-        READ("read"),
-        WRITE("write"),
-        FOLLOW("follow"),
-        ALL(Scope(READ, WRITE, FOLLOW).toString())
+
+    sealed class Name(val scopeName: String) {
+        object READ : Name("read")
+        object WRITE : Name("write")
+        object PUSH : Name("push")
+        object ALL : Name(Scope(READ, WRITE, PUSH).toString())
+
+        data class Custom(val customScope: String) : Name(customScope)
     }
 
     fun validate() {

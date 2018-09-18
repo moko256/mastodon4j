@@ -16,7 +16,7 @@ public class GetAppRegistration {
             AppRegistration registration = apps.createApp(
                     "mastodon4j-sample-app",
                     "urn:ietf:wg:oauth:2.0:oob",
-                    new Scope(Scope.Name.ALL),
+                    new Scope(Scope.Name.ALL.INSTANCE),
                     ""
             ).execute();
             System.out.println("instance=" + client.getInstanceName());
