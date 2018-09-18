@@ -8,5 +8,6 @@ import com.google.gson.annotations.SerializedName
 class PushSubscription(
     @SerializedName("id") val id: Long = 0L,
     @SerializedName("endpoint") val endpoint: String = "",
-    @SerializedName("server_key") val serverKey: String = ""
+    @SerializedName("server_key") val serverKey: String = "",
+    @SerializedName("alerts") val alerts: Map<String, String>? = null
 )
