@@ -9,5 +9,4 @@ repositories {
 
 dependencies {
     compile project(':mastodon4j')
-    testCompile 'junit:junit:4.12'
 }
