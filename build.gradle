@@ -1,6 +1,6 @@
 buildscript {
     ext.mastodon4jVersion = '1.7.0'
-    ext.kotlin_version = '1.2.70'
+    ext.kotlin_version = '1.2.71'
     ext.supportTestVersion = '0.5'
     ext.okhttpVersion = '3.6.0'
     ext.gradleToolsVersion = '3.1.0'
@@ -31,7 +31,6 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
     implementation "com.github.MulticolorWorld:mastodon4j:$mastodon4jVersion"
 }
 
