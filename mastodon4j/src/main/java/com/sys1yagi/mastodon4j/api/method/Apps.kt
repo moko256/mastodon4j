@@ -77,7 +77,7 @@ class Apps(private val client: MastodonClient) {
         }
         return MastodonRequest(
             {
-                client.post(url,
+                client.postUrl(url,
                     RequestBody.create(
                         MediaType.parse("application/x-www-form-urlencoded; charset=utf-8"),
                         parameters.build()
