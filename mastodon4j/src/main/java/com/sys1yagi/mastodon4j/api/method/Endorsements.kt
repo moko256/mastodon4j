@@ -7,15 +7,20 @@ import com.sys1yagi.mastodon4j.api.Range
 import com.sys1yagi.mastodon4j.api.entity.Account
 
 /**
- * See more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#blocks
+ * see more https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md#endorsements
  */
-class Blocks(private val client: MastodonClient) {
+class Endorsements(private val client: MastodonClient) {
 
-    //  GET /api/v1/blocks
-    fun getBlocks(range: Range = Range()): MastodonRequest<Pageable<Account>> {
+    //  GET /api/v1/endorsements
+    fun getEndorsements(
+        range: Range = Range()
+    ): MastodonRequest<Pageable<Account>> {
         return MastodonRequest<Pageable<Account>>(
             {
-                client.get("blocks", range.toParameter())
+                client.get(
+                    "endorsements",
+                    range.toParameter()
+                )
             },
             {
                 client.getSerializer().fromJson(it, Account::class.java)

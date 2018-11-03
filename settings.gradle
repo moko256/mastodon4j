@@ -1,4 +1,3 @@
-include ':mastodon4j', ':mastodon4j-rx'
+include ':mastodon4j'
 include 'sample'
-include 'sample-kotlin'
 

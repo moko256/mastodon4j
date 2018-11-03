@@ -3,12 +3,13 @@ package com.sys1yagi.mastodon4j
 import com.google.gson.JsonParser
 import com.sys1yagi.mastodon4j.api.exception.Mastodon4jRequestException
 import com.sys1yagi.mastodon4j.extension.toPageable
+import io.reactivex.Single
 import okhttp3.Response
 import java.lang.Exception
 
 open class MastodonRequest<T>(
-        private val executor: () -> Response,
-        private val mapper: (String) -> Any
+    private val executor: () -> Response,
+    private val mapper: (String) -> Any
 ) {
     interface Action1<T> {
         fun invoke(arg: T)
@@ -60,6 +61,17 @@ open class MastodonRequest<T>(
             }
         } else {
             throw Mastodon4jRequestException(response)
+        }
+    }
+
+    @Suppress("UNCHECKED_CAST")
+    fun single(): Single<T> {
+        return Single.create {
+            try {
+                it.onSuccess(execute())
+            } catch (e: Throwable) {
+                it.onError(e)
+            }
         }
     }
 }
