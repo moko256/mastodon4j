@@ -7,7 +7,7 @@ mastodon4j is [mastodon](https://github.com/tootsuite/mastodon) client for Java 
 
 # Official API Doc
 
-https://github.com/tootsuite/documentation/blob/master/Using-the-API/API.md
+https://docs.joinmastodon.org
 
 # Get Started
 
