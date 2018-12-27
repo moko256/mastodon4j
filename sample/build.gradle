@@ -1,3 +1,11 @@
+buildscript {
+    classpath "com.android.tools.build:gradle:$gradleToolsVersion"
+
+    repositories {
+        google()
+    }
+}
+
 apply plugin: 'java'
 
 sourceCompatibility = 1.8
