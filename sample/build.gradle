@@ -17,5 +17,5 @@ repositories {
 
 dependencies {
     compile project(':mastodon4j')
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion"
 }
