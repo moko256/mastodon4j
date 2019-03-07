@@ -89,6 +89,7 @@ class Statuses(private val client: MastodonClient) {
         status: String,
         inReplyToId: Long? = null,
         mediaIds: List<Long>? = null,
+        poll: UpdatePolls? = null,
         isSensitive: Boolean? = null,
         spoilerText: String? = null,
         visibility: Status.Visibility? = null,
@@ -104,6 +105,16 @@ class Statuses(private val client: MastodonClient) {
             }
             isSensitive?.let {
                 append("sensitive", it)
+            }
+            poll?.let { poll ->
+                append("poll[options]", poll.options)
+                append("poll[expires_in]", poll.expiresIn)
+                poll.multiple?.let {
+                    append("poll[multiple]", it)
+                }
+                poll.hideTotals?.let {
+                    append("poll[hide_totals]", it)
+                }
             }
             spoilerText?.let {
                 append("spoiler_text", it)
@@ -237,4 +248,11 @@ class Statuses(private val client: MastodonClient) {
             }
         )
     }
+
+    data class UpdatePolls(
+            val options: List<String>,
+            val expiresIn: Long,
+            val multiple: Boolean? = null,
+            val hideTotals: Boolean? = null
+    )
 }

@@ -29,6 +29,7 @@ class Status(
     @SerializedName("mentions") val mentions: List<Mention> = emptyList(),
     @SerializedName("tags") val tags: List<Tag> = emptyList(),
     @SerializedName("card") val card: Card? = null,
+    @SerializedName("poll") val poll: Poll? = null,
     @SerializedName("application") val application: Application? = null,
     @SerializedName("language") val language: String = "",
     @SerializedName("pinned") val isPinned: Boolean = false
