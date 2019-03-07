@@ -6,8 +6,6 @@ import org.amshove.kluent.shouldEqualTo
 import org.amshove.kluent.shouldNotBe
 import org.junit.Test
 
-import org.junit.Assert.*
-
 class StatusesTest {
     @Test
     fun getStatus() {

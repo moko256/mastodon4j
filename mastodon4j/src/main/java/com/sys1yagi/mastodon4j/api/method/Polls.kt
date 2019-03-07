@@ -16,7 +16,7 @@ class Polls(private val client: MastodonClient) {
     //  GET /api/v1/polls/:id
     @Throws(Mastodon4jRequestException::class)
     fun getPoll(pollId: Long): MastodonRequest<Poll> {
-        return MastodonRequest<Poll>(
+        return MastodonRequest(
                 {
                     client.get("polls/$pollId")
                 },
@@ -32,7 +32,7 @@ class Polls(private val client: MastodonClient) {
         val parameters = Parameter().apply {
             append("choices", choices)
         }.build()
-        return MastodonRequest<Poll>(
+        return MastodonRequest(
                 {
                     client.post("polls/$pollId/votes",
                             RequestBody.create(
