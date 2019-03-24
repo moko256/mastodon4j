@@ -9,8 +9,9 @@ constructor(private vararg val scopes: Name = arrayOf(Name.ALL)) {
     sealed class Name(val scopeName: String) {
         object READ : Name("read")
         object WRITE : Name("write")
+        object FOLLOW : Name("follow")
         object PUSH : Name("push")
-        object ALL : Name(Scope(READ, WRITE, PUSH).toString())
+        object ALL : Name(Scope(READ, WRITE, FOLLOW, PUSH).toString())
 
         data class Custom(val customScope: String) : Name(customScope)
     }
