@@ -142,13 +142,13 @@ class Statuses(private val client: MastodonClient) {
     }
 
     //  DELETE /api/v1/statuses/:id
-    fun deleteStatus(statusId: Long): MastodonRequest<Nothing> {
+    fun deleteStatus(statusId: Long): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.delete("statuses/$statusId", emptyRequestBody())
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }

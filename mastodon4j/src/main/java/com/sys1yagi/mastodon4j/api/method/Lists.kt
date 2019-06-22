@@ -96,7 +96,7 @@ class Lists(private val client: MastodonClient) {
     }
 
     //  DELETE /api/v1/lists/:id
-    fun deleteList(id: Long): MastodonRequest<Nothing> {
+    fun deleteList(id: Long): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.delete("lists/$id", emptyRequestBody())
@@ -108,7 +108,7 @@ class Lists(private val client: MastodonClient) {
     }
 
     //  POST /api/v1/lists/:id/accounts
-    fun addAccountsToList(id: Long, accountIds: List<Long>): MastodonRequest<Nothing> {
+    fun addAccountsToList(id: Long, accountIds: List<Long>): MastodonRequest<Unit> {
         val parameters = Parameter().apply {
             append("account_ids", accountIds)
         }
@@ -122,13 +122,13 @@ class Lists(private val client: MastodonClient) {
                 )
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }
 
     //  DELETE /api/v1/lists/:id/accounts
-    fun removeAccountsFromList(id: Long, accountIds: List<Long>): MastodonRequest<Nothing> {
+    fun removeAccountsFromList(id: Long, accountIds: List<Long>): MastodonRequest<Unit> {
         val parameters = Parameter().apply {
             append("account_ids", accountIds)
         }
@@ -142,7 +142,7 @@ class Lists(private val client: MastodonClient) {
                 )
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }

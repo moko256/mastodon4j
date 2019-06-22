@@ -23,13 +23,13 @@ class FollowSuggestions(private val client: MastodonClient) {
     }
 
     //  DELETE /api/v1/suggestions/:account_id
-    fun deleteSuggestions(accountId: Long): MastodonRequest<Nothing> {
+    fun deleteSuggestions(accountId: Long): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.delete("suggestions/$accountId", emptyRequestBody())
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }

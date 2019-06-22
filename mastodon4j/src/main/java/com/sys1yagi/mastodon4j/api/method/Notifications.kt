@@ -44,7 +44,7 @@ class Notifications(private val client: MastodonClient) {
     }
 
     //  POST /api/v1/notifications/clear
-    fun clearNotifications(): MastodonRequest<Nothing> {
+    fun clearNotifications(): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.post("notifications/clear", emptyRequestBody())
@@ -56,7 +56,7 @@ class Notifications(private val client: MastodonClient) {
     }
 
     //  POST /api/v1/notifications/dismiss
-    fun dismissNotification(id: Long): MastodonRequest<Nothing> {
+    fun dismissNotification(id: Long): MastodonRequest<Unit> {
         val parameters = Parameter().apply {
             append("id", id)
         }
@@ -168,13 +168,13 @@ class Notifications(private val client: MastodonClient) {
     }
 
     //  DELETE /api/v1/push/subscription
-    fun deleteSubscription(): MastodonRequest<Nothing> {
+    fun deleteSubscription(): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.delete("push/subscription", emptyRequestBody())
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }

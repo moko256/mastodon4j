@@ -25,24 +25,24 @@ class FollowRequests(private val client: MastodonClient) {
     }
 
     //  POST /api/v1/follow_requests/:id/authorize
-    fun postAuthorize(accountId: Long): MastodonRequest<Nothing> {
+    fun postAuthorize(accountId: Long): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.post("follow_requests/$accountId/authorize", emptyRequestBody())
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }
 
-    fun postReject(accountId: Long): MastodonRequest<Nothing> {
+    fun postReject(accountId: Long): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.post("follow_requests/$accountId/reject", emptyRequestBody())
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }

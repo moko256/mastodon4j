@@ -111,13 +111,13 @@ class Filters(private val client: MastodonClient) {
     }
 
     //  DELETE /api/vi/filters/:id
-    fun deleteFilter(id: Long): MastodonRequest<Nothing> {
+    fun deleteFilter(id: Long): MastodonRequest<Unit> {
         return MastodonRequest(
             {
                 client.delete("filters/$id", emptyRequestBody())
             },
             {
-                client.getSerializer().fromJson(it, Nothing::class.java)
+                client.getSerializer().fromJson(it, Unit::class.java)
             }
         )
     }
